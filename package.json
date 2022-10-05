@@ -2,10 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": " nodemon src/index.ts"
+    "start": " nodemon src/index.ts",
+    "import": " ts-node src/seeder.ts"
+
   },
   "keywords": [],
   "author": "",
@@ -16,7 +18,9 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "mongoose": "^6.6.4",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1"
   }

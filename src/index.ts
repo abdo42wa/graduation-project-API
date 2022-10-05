@@ -1,13 +1,15 @@
 import express from "express"
-//import { productRoutes } from "./routes/product/productRouts";
-console.log("Hello world")
+import dotenv from "dotenv"
+import connectDB from "./config/db";
 
-const PORT = 5_000
+
+dotenv.config();
+connectDB();
+const PORT = process.env.PORT || 500
 const app = express();
 
 app.get('/', (req,res) => {
     res.send('API is running')
 })
 
-//app.use("/api/products", productRoutes)
 app.listen(PORT, () => console.log(`running port on ${PORT}`));
