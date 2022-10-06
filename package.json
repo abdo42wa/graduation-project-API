@@ -2,12 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
-  "type": "module",
+  "main": "index.js",
   "scripts": {
     "start": " nodemon src/index.ts",
-    "import": " ts-node src/seeder.ts"
-
+    "import": " ts-node src/seeder.ts",
+    "destroy": " ts-node src/seeder.ts -d"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +19,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
     "mongoose": "^6.6.4",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1"
