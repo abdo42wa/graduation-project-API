@@ -9,7 +9,17 @@ const Category = [
     },
     {
         title: "categoryThree",
-        status: "APPROVED"
+        status: "APPROVED",
+        supCategories:[
+            {
+                title: "sub1",
+                status: "APPROVED",
+            },
+            {
+                title: "sub2",
+                status: "PENDING",
+            }
+    ]
     }
 
 ]
