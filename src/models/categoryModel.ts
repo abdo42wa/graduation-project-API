@@ -9,12 +9,17 @@ enum CategoryStatus {
 interface ICategory {
     title: string,
     status: CategoryStatus,
-    supCategories?: { title: string, status: CategoryStatus }[] 
+    subCategories: { title: string, status: CategoryStatus }[]  
 }
 
-const subCategorySchema = new mongoose.Schema <ICategory>({
+export interface ISubCategory {
+    title: string,
+    status: CategoryStatus
+}
+
+const subCategorySchema = new mongoose.Schema <ISubCategory>({
         title:{type: String},
-        status:{type: String}
+        status:{type: String, default: CategoryStatus.PENDING}
 });
 
 const categorySchema = new mongoose.Schema <ICategory>({
@@ -28,7 +33,7 @@ const categorySchema = new mongoose.Schema <ICategory>({
         require: true,
         default: CategoryStatus.PENDING
     },
-    supCategories:[subCategorySchema]
+    subCategories:[subCategorySchema]
 },{
     timestamps: true
 })

@@ -1,0 +1,67 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\abdo.ahmed\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js start
+
+PATH: 
+  C:\Users\abdo.ahmed\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\abdo.ahmed\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Program Files\k6;C:\Program Files\Amazon\AWSCLIV2;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\abdo.ahmed\AppData\Local\Microsoft\WindowsApps;C:\Users\abdo.ahmed\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\abdo.ahmed\AppData\Roaming\npm;C:\Users\abdo.ahmed\AppData\Local\GitHubDesktop\bin;C:\Users\abdo.ahmed\.dotnet\tools;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  16.14.2
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: Failed to replace env in config: ${GITHUB_NPM_TOKEN}
+      at C:\Users\abdo.ahmed\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:94926:13
+      at String.replace (<anonymous>)
+      at envReplace (C:\Users\abdo.ahmed\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:94921:16)
+      at Function.normalizeConfig (C:\Users\abdo.ahmed\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:31930:69)
+      at NpmRegistry.<anonymous> (C:\Users\abdo.ahmed\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:31960:34)
+      at Generator.next (<anonymous>)
+      at step (C:\Users\abdo.ahmed\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\abdo.ahmed\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "dev": " nodemon src/index.ts",
+      "import": " ts-node src/seeder.ts",
+      "destroy": " ts-node src/seeder.ts -d",
+      "start1": "concurrently \"nodemon src/index.ts\" \"docker run -p 8080:8080 -v ~/Desktop/final-project/backend/src devopsfaith/krakend:watch run --config ./krakend.json\"",
+      "start-no-cache": "docker-compose build --no-cache && docker-compose up --remove-orphans",
+      "start": "docker-compose up --remove-orphans"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "@types/cors": "^2.8.12",
+      "@types/express": "^4.17.14",
+      "ts-node-dev": "^2.0.0",
+      "typescript": "^4.8.4"
+    },
+    "dependencies": {
+      "concurrently": "^7.4.0",
+      "cors": "^2.8.5",
+      "dotenv": "^16.0.3",
+      "express": "^4.18.2",
+      "express-async-handler": "^1.2.0",
+      "express-openid-connect": "^2.8.0",
+      "mongoose": "^6.6.4",
+      "nodemon": "^2.0.20",
+      "ts-node": "^10.9.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": " nodemon src/index.ts",
-    "import": " ts-node src/seeder.ts",
+    "dev": " nodemon src/index.ts",
+    "import1": " ts-node src/seeder.ts",
     "destroy": " ts-node src/seeder.ts -d",
-    "start1": "concurrently \"nodemon src/index.ts\" \"docker run -p 8080:8080 -v ~/Desktop/final-project/backend devopsfaith/krakend:watch run --config ./krakend.json\""
+    "start1": "concurrently \"nodemon src/index.ts\" \"docker run -p 8080:8080 -v ~/Desktop/final-project/backend/src devopsfaith/krakend:watch run --config ./krakend.json\"",
+    "start-no-cache": "docker-compose build --no-cache && docker-compose up --remove-orphans",
+    "start": "docker-compose up --remove-orphans"
   },
   "keywords": [],
   "author": "",
@@ -22,8 +24,9 @@
     "concurrently": "^7.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.1",
+    "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "express-openid-connect": "^2.8.0",
     "mongoose": "^6.6.4",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1"

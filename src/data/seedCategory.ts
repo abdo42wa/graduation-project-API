@@ -1,7 +1,18 @@
 const Category = [
     {
         title: "categoryOne",
-        status: "PENDING"
+        status: "PENDING",
+        subCategories:
+        [
+            {
+                title: "fake",
+                status: "APPROVED",
+            },
+            {
+                title: "make",
+                status: "PENDING",
+            }
+        ]
     },
     {
         title: "categoryTow",
@@ -10,7 +21,8 @@ const Category = [
     {
         title: "categoryThree",
         status: "APPROVED",
-        supCategories:[
+        subCategories:
+        [
             {
                 title: "sub1",
                 status: "APPROVED",
@@ -19,7 +31,7 @@ const Category = [
                 title: "sub2",
                 status: "PENDING",
             }
-    ]
+        ]
     }
 
 ]
