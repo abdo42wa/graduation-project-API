@@ -3,8 +3,9 @@ import dotenv from "dotenv"
 import connectDB from "./config/db";
 import categoryRoutes from './routes/category/categoryRoute'
 import userRouters from './routes/user/userRoutes'
+import productsReoutes from './routes/products/productsReoutes'
 import cors from 'cors'
-// import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser'
 import passport from './middlewares/passport.middleware'
 import { sesstionMiddelware } from "./middlewares/session.middleware";
 
@@ -17,7 +18,7 @@ const app = express();
 
 app.use(cors())
 app.use(express.json())
-// app.use(cookieParser("secret is secret"))
+app.use(cookieParser("secret is secret"))
 app.use(sesstionMiddelware)
 
 app.use(passport.initialize())
@@ -32,6 +33,7 @@ app.get('/', (req, res) => {
     res.send('API is running')
 })
 
+app.use('/api/products', productsReoutes)
 app.use('/api/categories', categoryRoutes)
 app.use('/api/user', userRouters)
 

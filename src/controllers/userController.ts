@@ -27,7 +27,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response, next: Next
             email: user.email,
             isAdmin: user.isAdmin,
             email_veryfied: user.email_veryfied,
-            //token: generateToken(user._id),
         })
     } else {
         res.status(400)
