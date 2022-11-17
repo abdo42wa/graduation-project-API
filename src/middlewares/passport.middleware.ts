@@ -1,7 +1,10 @@
 import passport from "passport";
-import User, { Iuser } from "../models/userModel";
+import User from "../models/userModel";
+import dotenv from "dotenv"
 import { Strategy as LocalStratgy } from 'passport-local'
+import GoogleStrategy from 'passport-google-oauth20';
 
+dotenv.config();
 
 
 passport.use(
@@ -27,12 +30,49 @@ passport.use(
     )
 )
 
+// this is google
+
+passport.use(
+    new GoogleStrategy.Strategy(
+        {
+            clientID: `${process.env.GOOGLE_CLIENT_ID}`,
+            clientSecret: `${process.env.GOOGLE_PRIVATE_SECRET}`,
+            callbackURL: '/auth/google/callback',
+        },
+        async (_accessToken, _refreshToken, profile: any, done) => {
+            const userEmail = await User.findOne({ email: profile.emails[0].value })
+
+            if (userEmail) {
+                userEmail.googleID = profile.id
+                userEmail.email_veryfied = true
+                await userEmail.save()
+            } else {
+                await User.create({
+                    name: profile.displayName,
+                    email: profile.emails[0].value,
+                    email_veryfied: true,
+                    googleID: profile.id
+                })
+
+
+            }
+
+            console.log(profile)
+            done(null, profile);
+        }
+    )
+);
+
+
 passport.serializeUser((user: any, done: any) => {
     done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-    User.findById(id, (err: NativeError, user: Iuser) => done(err, user));
+passport.deserializeUser((obj: any, done) => {
+    done(null, obj);
 });
+// passport.deserializeUser((id, done) => {
+//     User.findById(id, (err: NativeError, user: Iuser) => done(err, user));
+// });
 
 export default passport;

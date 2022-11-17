@@ -65,5 +65,12 @@ const logout = ((req: Request, res: Response, next: NextFunction) => {
         res.status(204).send("user looged out")
     });
 })
-export { registerUser, authUser, logout, getUserInfo };
+
+const getAllUsers = (async (req: Request, res: Response, next: NextFunction) => {
+
+    const allUsers = await User.find({})
+
+    res.status(200).json({ allUsers })
+})
+export { registerUser, authUser, logout, getUserInfo, getAllUsers };
 

@@ -1,9 +1,11 @@
 import session from "express-session"
 import MongoStore from 'connect-mongo'
 import { Request, Response, NextFunction } from 'express'
+import dotenv from "dotenv"
 export const sesstionMiddelware = (req: Request, res: Response, next: NextFunction) => {
+    dotenv.config();
     return session({
-        secret: "secret is secret",
+        secret: `${process.env.COOKIE_SECRET}`,
         resave: false,
         saveUninitialized: false,
 
