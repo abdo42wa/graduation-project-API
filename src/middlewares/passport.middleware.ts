@@ -54,10 +54,8 @@ passport.use(
                     googleID: profile.id
                 })
 
-
             }
 
-            console.log(profile)
             done(null, profile);
         }
     )

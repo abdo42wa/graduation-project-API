@@ -27,7 +27,7 @@ const productSchema = new mongoose.Schema<Iproduct>({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User._id',
+        ref: 'User',
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
