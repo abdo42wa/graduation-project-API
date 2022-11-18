@@ -11,7 +11,7 @@ const createProductReview = asyncHandler(async (req: Request, res: Response, nex
         rating,
         comment,
         product: req.params.id,
-        user: req?.user
+        user: req.user
     });
 
     if (newReview) {
@@ -38,7 +38,7 @@ const getAllReviewsWithProductID = asyncHandler(async (req, res) => {
 
 const getAvaregeRatingByProductId = asyncHandler(async (req, res) => {
 
-    const fakfak: any = [
+    const average: any = [
         {
             '$match': {
                 'product': {
@@ -55,8 +55,9 @@ const getAvaregeRatingByProductId = asyncHandler(async (req, res) => {
         }
     ]
 
-    const reviews = await Review.aggregate(fakfak)
-    res.json(reviews)
+    const reviews = await Review.aggregate(average)
+    const rating = reviews.map((x) => x.avgRating)
+    res.json(rating)
 })
 
 

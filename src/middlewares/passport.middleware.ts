@@ -40,12 +40,12 @@ passport.use(
             callbackURL: '/auth/google/callback',
         },
         async (_accessToken, _refreshToken, profile: any, done: any) => {
-            const userEmail = await User.findOne({ email: profile.emails[0].value })
+            const user = await User.findOne({ email: profile.emails[0].value })
 
-            if (userEmail) {
-                userEmail.googleID = profile.id
-                userEmail.email_veryfied = true
-                await userEmail.save()
+            if (user) {
+                user.googleID = profile.id
+                user.email_veryfied = true
+                await user.save()
             } else {
                 await User.create({
                     name: profile.displayName,
@@ -56,7 +56,7 @@ passport.use(
 
             }
 
-            done(null, profile);
+            done(null, user);
         }
     )
 );
