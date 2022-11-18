@@ -417,6 +417,22 @@
   "resolved" "https://registry.npmjs.org/@types/node/-/node-18.7.23.tgz"
   "version" "18.7.23"
 
+"@types/oauth@*":
+  "integrity" "sha512-a1iY62/a3yhZ7qH7cNUsxoI3U/0Fe9+RnuFrpTKr+0WVOzbKlSLojShCKe20aOD1Sppv+i8Zlq0pLDuTJnwS4A=="
+  "resolved" "https://registry.npmjs.org/@types/oauth/-/oauth-0.9.1.tgz"
+  "version" "0.9.1"
+  dependencies:
+    "@types/node" "*"
+
+"@types/passport-google-oauth20@^2.0.11":
+  "integrity" "sha512-9XMT1GfwhZL7UQEiCepLef55RNPHkbrCtsU7rsWPTEOsmu5qVIW8nSemtB4p+P24CuOhA+IKkv8LsPThYghGww=="
+  "resolved" "https://registry.npmjs.org/@types/passport-google-oauth20/-/passport-google-oauth20-2.0.11.tgz"
+  "version" "2.0.11"
+  dependencies:
+    "@types/express" "*"
+    "@types/passport" "*"
+    "@types/passport-oauth2" "*"
+
 "@types/passport-local@^1.0.34":
   "integrity" "sha512-PSc07UdYx+jhadySxxIYWuv6sAnY5e+gesn/5lkPKfBeGuIYn9OPR+AAEDq73VRUh6NBTpvE/iPE62rzZUslog=="
   "resolved" "https://registry.npmjs.org/@types/passport-local/-/passport-local-1.0.34.tgz"
@@ -425,6 +441,15 @@
     "@types/express" "*"
     "@types/passport" "*"
     "@types/passport-strategy" "*"
+
+"@types/passport-oauth2@*":
+  "integrity" "sha512-KUNwmGhe/3xPbjkzkPwwcPmyFwfyiSgtV1qOrPBLaU4i4q9GSCdAOyCbkFG0gUxAyEmYwqo9OAF/rjPjJ6ImdA=="
+  "resolved" "https://registry.npmjs.org/@types/passport-oauth2/-/passport-oauth2-1.4.11.tgz"
+  "version" "1.4.11"
+  dependencies:
+    "@types/express" "*"
+    "@types/oauth" "*"
+    "@types/passport" "*"
 
 "@types/passport-strategy@*":
   "integrity" "sha512-o5D19Jy2XPFoX2rKApykY15et3Apgax00RRLf0RUotPDUsYrQa7x4howLYr9El2mlUApHmCMv5CZ1IXqKFQ2+g=="

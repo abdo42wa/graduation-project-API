@@ -4,6 +4,7 @@ import connectDB from "./config/db";
 import categoryRoutes from './routes/category/categoryRoute'
 import userRouters from './routes/user/userRoutes'
 import productsReoutes from './routes/products/productsReoutes'
+import reviewsReoutes from './routes/reviews/reviewRouter'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import passport from './middlewares/passport.middleware'
@@ -45,6 +46,7 @@ app.get(
 app.use('/api/products', productsReoutes)
 app.use('/api/categories', categoryRoutes)
 app.use('/api/user', userRouters)
+app.use('/api/review', reviewsReoutes)
 
 app.get('/', (req, res) => {
     res.send('API is running')

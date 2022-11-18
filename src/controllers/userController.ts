@@ -52,7 +52,9 @@ const authUser = asyncHandler(async (req: Request, res: Response, next: NextFunc
 
 const getUserInfo = (req: Request, res: Response, next: NextFunction) => {
 
-    req.isAuthenticated() ? res.status(200).json({ user: req.user }) : res.status(401).json({ user: null })
+    req.isAuthenticated() ?
+        res.status(200).json(req.user)
+        : res.status(401).json({ user: null })
 }
 
 const logout = ((req: Request, res: Response, next: NextFunction) => {

@@ -39,7 +39,7 @@ passport.use(
             clientSecret: `${process.env.GOOGLE_PRIVATE_SECRET}`,
             callbackURL: '/auth/google/callback',
         },
-        async (_accessToken, _refreshToken, profile: any, done) => {
+        async (_accessToken, _refreshToken, profile: any, done: any) => {
             const userEmail = await User.findOne({ email: profile.emails[0].value })
 
             if (userEmail) {
