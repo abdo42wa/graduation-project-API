@@ -50,11 +50,18 @@ const authUser = asyncHandler(async (req: Request, res: Response, next: NextFunc
     })(req, res, next)
 });
 
-const getUserInfo = (req: Request, res: Response, next: NextFunction) => {
+const getUserInfo = async (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated()) {
+        const user = await User.findById(req.user)
 
-    req.isAuthenticated() ?
-        res.status(200).json(req.user)
-        : res.status(401).json({ user: null })
+        res.status(200).json(user)
+    } else {
+
+        res.status(401).json({ user: null })
+    }
+    // req.isAuthenticated() ?
+    //     res.status(200).json({ user: req.user })
+    //     : res.status(401).json({ user: null })
 }
 
 const logout = ((req: Request, res: Response, next: NextFunction) => {

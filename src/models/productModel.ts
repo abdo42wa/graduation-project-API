@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
 
+export enum ModerationStatus {
+    IN_CLARIFICATION = 'IN_CLARIFICATION',
+    PENDING = "PENDING",
+    APPROVE = "APPROVE",
+}
 export enum ProductStatus {
     NEW = 'NEW',
     USED = 'USD',
-    PUBLISHED = "PUBLISHED",
-    PENDING = "PENDING",
-    APPROVE = "APPROVE",
 }
 
 export interface Iproduct {
@@ -15,12 +17,13 @@ export interface Iproduct {
     name: string,
     brand?: string,
     description: string,
-    rating: number,
+    modirationStatus: ModerationStatus,
     numReviews: number,
     price: number,
     status: ProductStatus,
     countInStock: number,
     discaunt: number,
+    isPublished: boolean
 }
 
 const productSchema = new mongoose.Schema<Iproduct>({
@@ -50,10 +53,15 @@ const productSchema = new mongoose.Schema<Iproduct>({
         type: String,
         required: true,
     },
-    rating: {
-        type: Number,
+    modirationStatus: {
+        type: String,
         required: true,
-        default: 0,
+        default: ModerationStatus.PENDING,
+    },
+    status: {
+        type: String,
+        required: true,
+        default: ProductStatus.NEW,
     },
     numReviews: {
         type: Number,
@@ -74,6 +82,11 @@ const productSchema = new mongoose.Schema<Iproduct>({
         type: Number,
         required: true,
         default: 0,
+    },
+    isPublished: {
+        type: Boolean,
+        required: true,
+        default: true,
     }
 }, {
     timestamps: true
