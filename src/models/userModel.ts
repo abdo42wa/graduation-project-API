@@ -12,7 +12,7 @@ export interface Iuser {
     type: UserTypes,
     isAdmin: boolean,
     name: string,
-    bankAaccount?: string,
+    profile_picture?: string,
     password?: string,
     email_veryfied: boolean,
     googleID?: string,
@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema<Iuser>({
         require: true,
         unique: true,
     },
-    bankAaccount: {
+    profile_picture: {
         type: String,
         default: null
     },

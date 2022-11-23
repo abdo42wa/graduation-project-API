@@ -34,6 +34,40 @@ const registerUser = asyncHandler(async (req: Request, res: Response, next: Next
     }
 })
 
+
+const updateUserProfile = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+    const user = await User.findById(req.user)
+
+    if (user) {
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.profile_picture = req.body.profile_picture || user.profile_picture
+        if (req.body.password) {
+            const isvalid = await user.matchPassword(req.body.password)
+            if (isvalid) {
+
+                user.password = req.body.password
+            } else {
+                res.status(404)
+                throw new Error('Password Dose not match')
+            }
+        }
+
+        const updatedUser = await user.save()
+
+        res.json({
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            profile_picture: updatedUser.profile_picture
+        })
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
+})
+
 const authUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate("local", (err, user, info) => {
         if (!user) return res.status(401).json({ message: "Email or password is incorect" })
@@ -59,9 +93,6 @@ const getUserInfo = async (req: Request, res: Response, next: NextFunction) => {
 
         res.status(401).json({ user: null })
     }
-    // req.isAuthenticated() ?
-    //     res.status(200).json({ user: req.user })
-    //     : res.status(401).json({ user: null })
 }
 
 const logout = ((req: Request, res: Response, next: NextFunction) => {
@@ -81,5 +112,5 @@ const getAllUsers = (async (req: Request, res: Response, next: NextFunction) => 
 
     res.status(200).json({ allUsers })
 })
-export { registerUser, authUser, logout, getUserInfo, getAllUsers };
+export { registerUser, authUser, logout, getUserInfo, getAllUsers, updateUserProfile };
 
