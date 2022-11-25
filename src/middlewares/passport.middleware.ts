@@ -44,13 +44,13 @@ passport.use(
 
             if (user) {
                 user.googleID = profile.id
-                user.email_veryfied = true
+                user.email_verified = true
                 await user.save()
             } else {
                 await User.create({
                     name: profile.displayName,
                     email: profile.emails[0].value,
-                    email_veryfied: true,
+                    email_verified: true,
                     googleID: profile.id
                 })
 
@@ -70,7 +70,7 @@ passport.deserializeUser((obj: any, done) => {
     done(null, obj);
 });
 // passport.deserializeUser((id, done) => {
-//     User.findById(id, (err: NativeError, user: Iuser) => done(err, user));
+//     User.findById(id, (err: NativeError, user: IUser) => done(err, user));
 // });
 
 export default passport;

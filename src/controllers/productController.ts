@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler'
-import Product, { Iproduct } from '../models/productModel'
+import Product, { IProduct } from '../models/productModel'
 import User from '../models/userModel'
 
 
@@ -49,7 +49,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 })
 
 const createProduct = asyncHandler(async (req, res) => {
-    const { name, price, image, brand, category, countInStock, discaunt, description, status }: Iproduct = req.body;
+    const { name, price, image, brand, category, countInStock, discount: discaunt, description, status }: IProduct = req.body;
 
     const product = await Product.create({
         name,
@@ -60,7 +60,7 @@ const createProduct = asyncHandler(async (req, res) => {
         category,
         countInStock,
         description,
-        discaunt,
+        discount: discaunt,
         status,
     })
 
@@ -77,7 +77,7 @@ const updateProduct = asyncHandler(async (req, res) => {
         category,
         countInStock,
         status,
-        discaunt
+        discount
 
     } = req.body
 
@@ -92,7 +92,7 @@ const updateProduct = asyncHandler(async (req, res) => {
         product.category = category ?? product.category
         product.countInStock = countInStock ?? product.countInStock
         product.status = status ?? product.status
-        product.discaunt = discaunt ?? product.discaunt
+        product.discount = discount ?? product.discount
 
         const updatedProduct = await product.save()
         res.json(updatedProduct)

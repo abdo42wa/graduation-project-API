@@ -6,7 +6,7 @@ enum UserTypes {
     BUYER = 'BUYER',
 }
 
-export interface Iuser {
+export interface IUser {
     _id: string,
     email: string,
     type: UserTypes,
@@ -14,12 +14,12 @@ export interface Iuser {
     name: string,
     profile_picture?: string,
     password?: string,
-    email_veryfied: boolean,
+    email_verified: boolean,
     googleID?: string,
     matchPassword: any
 }
 
-const userSchema = new mongoose.Schema<Iuser>({
+const userSchema = new mongoose.Schema<IUser>({
     name: {
         type: String,
         require: true
@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema<Iuser>({
         type: String,
         default: null
     },
-    email_veryfied: {
+    email_verified: {
         type: Boolean,
         default: false
     },

@@ -10,23 +10,23 @@ export enum ProductStatus {
     USED = 'USD',
 }
 
-export interface Iproduct {
+export interface IProduct {
     user: mongoose.SchemaDefinitionProperty<string>,
     category: mongoose.SchemaDefinitionProperty<string>,
     image: string,
     name: string,
     brand?: string,
     description: string,
-    modirationStatus: ModerationStatus,
+    moderationStatus: ModerationStatus,
     numReviews: number,
     price: number,
     status: ProductStatus,
     countInStock: number,
-    discaunt: number,
+    discount: number,
     isPublished: boolean
 }
 
-const productSchema = new mongoose.Schema<Iproduct>({
+const productSchema = new mongoose.Schema<IProduct>({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -53,7 +53,7 @@ const productSchema = new mongoose.Schema<Iproduct>({
         type: String,
         required: true,
     },
-    modirationStatus: {
+    moderationStatus: {
         type: String,
         required: true,
         default: ModerationStatus.PENDING,
@@ -78,7 +78,7 @@ const productSchema = new mongoose.Schema<Iproduct>({
         required: true,
         default: 0
     },
-    discaunt: {
+    discount: {
         type: Number,
         required: true,
         default: 0,

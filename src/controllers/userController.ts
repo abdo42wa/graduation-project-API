@@ -26,7 +26,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response, next: Next
             name: user.name,
             email: user.email,
             isAdmin: user.isAdmin,
-            email_veryfied: user.email_veryfied,
+            email_verified: user.email_verified,
         })
     } else {
         res.status(400)

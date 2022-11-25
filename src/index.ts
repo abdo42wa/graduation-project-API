@@ -3,12 +3,13 @@ import dotenv from "dotenv"
 import connectDB from "./config/db";
 import categoryRoutes from './routes/category/categoryRoute'
 import userRouters from './routes/user/userRoutes'
-import productsReoutes from './routes/products/productsReoutes'
-import reviewsReoutes from './routes/reviews/reviewRouter'
+import productsRouters from './routes/products/productsRouters'
+import reviewsRouters from './routes/reviews/reviewRouters'
+import shippingAddressRouters from './routes/shippingAddress/shippingAddressReuters'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import passport from './middlewares/passport.middleware'
-import { sesstionMiddelware } from "./middlewares/session.middleware";
+import { sessionMiddleware } from "./middlewares/session.middleware";
 
 dotenv.config();
 connectDB();
@@ -20,7 +21,7 @@ const app = express();
 app.use(cors({ origin: "http://localhost:3000", credentials: true }))
 app.use(express.json())
 app.use(cookieParser(`${process.env.COOKIE_SECRET}`))
-app.use(sesstionMiddelware)
+app.use(sessionMiddleware)
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -43,10 +44,12 @@ app.get(
 
 
 
-app.use('/api/products', productsReoutes)
+app.use('/api/products', productsRouters)
 app.use('/api/categories', categoryRoutes)
 app.use('/api/user', userRouters)
-app.use('/api/review', reviewsReoutes)
+app.use('/api/review', reviewsRouters)
+app.use('/api/shippingAddress', shippingAddressRouters)
+
 
 app.get('/', (req, res) => {
     res.send('API is running')
