@@ -5,11 +5,14 @@ import categoryRoutes from './routes/category/categoryRoute'
 import userRouters from './routes/user/userRoutes'
 import productsRouters from './routes/products/productsRouters'
 import reviewsRouters from './routes/reviews/reviewRouters'
-import shippingAddressRouters from './routes/shippingAddress/shippingAddressReuters'
+import addressRouters from './routes/shippingAddress/addressReuters'
+import orderReuters from './routes/orders/orderReuters'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import passport from './middlewares/passport.middleware'
 import { sessionMiddleware } from "./middlewares/session.middleware";
+
+
 
 dotenv.config();
 connectDB();
@@ -48,7 +51,8 @@ app.use('/api/products', productsRouters)
 app.use('/api/categories', categoryRoutes)
 app.use('/api/user', userRouters)
 app.use('/api/review', reviewsRouters)
-app.use('/api/shippingAddress', shippingAddressRouters)
+app.use('/api/address', addressRouters)
+app.use('/api/order', orderReuters)
 
 
 app.get('/', (req, res) => {

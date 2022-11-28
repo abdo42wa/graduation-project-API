@@ -1,12 +1,12 @@
 import expressAsyncHandler from "express-async-handler";
-import ShippingAddress, { IShippingAddress } from "../models/shippingAddressModel";
+import Address, { IAddress } from "../models/addressModel";
 
 export const addOrUpdateAddress = expressAsyncHandler(async (req, res) => {
-    const { address, city, country, postalCode }: IShippingAddress = req.body;
+    const { address, city, country, postalCode }: IAddress = req.body;
 
 
 
-    const addAddress = await ShippingAddress.create({
+    const addAddress = await Address.create({
         user: req.user,
         address,
         city,
@@ -25,7 +25,7 @@ export const addOrUpdateAddress = expressAsyncHandler(async (req, res) => {
 })
 
 export const getUserAddress = expressAsyncHandler(async (req, res) => {
-    const userAddress = await ShippingAddress.find({ 'user': req.user })
+    const userAddress = await Address.find({ 'user': req.user })
 
     if (userAddress) {
         res.status(200).json(userAddress[0])

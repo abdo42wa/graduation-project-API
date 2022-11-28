@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface IShippingAddress {
+export interface IAddress {
     user: mongoose.SchemaDefinitionProperty<string>,
     address: string,
     city: string,
@@ -8,7 +8,7 @@ export interface IShippingAddress {
     country: string
 }
 
-const shippingAddressSchema = new mongoose.Schema<IShippingAddress>({
+const addressSchema = new mongoose.Schema<IAddress>({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         require: true,
@@ -33,6 +33,6 @@ const shippingAddressSchema = new mongoose.Schema<IShippingAddress>({
 
 })
 
-const ShippingAddress = mongoose.model('Shipping', shippingAddressSchema)
+const Address = mongoose.model('Address', addressSchema)
 
-export default ShippingAddress
+export default Address

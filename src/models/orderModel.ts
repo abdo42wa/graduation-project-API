@@ -1,6 +1,20 @@
 import mongoose from "mongoose"
+export interface IOrder {
+    user: mongoose.SchemaDefinitionProperty<string>,
+    orderItems: [],
+    shippingAddress: {},
+    paymentMethod: string,
+    paymentResult: {},
+    shippingPrice: number,
+    totalPrice: number,
+    taxPrice: number,
+    isPaid: boolean,
+    isDelivered: boolean,
+    deliveredAt: Date
 
-const orderSchema = new mongoose.Schema({
+}
+
+const orderSchema = new mongoose.Schema<IOrder>({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         require: true,
@@ -19,6 +33,12 @@ const orderSchema = new mongoose.Schema({
             },
         }
     ],
+    shippingAddress: {
+        address: { type: String, require: true, },
+        city: { type: String, require: true },
+        postalCode: { type: String, require: true },
+        country: { type: String, require: true }
+    },
     paymentMethod: {
         type: String,
         require: true,
@@ -48,9 +68,6 @@ const orderSchema = new mongoose.Schema({
         type: Boolean,
         require: true,
         default: false
-    },
-    paidAt: {
-        type: Date
     },
     isDelivered: {
         type: Boolean,
