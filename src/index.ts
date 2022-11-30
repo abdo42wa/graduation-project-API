@@ -22,7 +22,9 @@ const PORT = process.env.PORT || 5000
 const app = express();
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }))
-app.use(express.json())
+app.use(express.json({
+    verify: (req: any, res: any, buffer) => req['rawBody'] = buffer
+}))
 app.use(cookieParser(`${process.env.COOKIE_SECRET}`))
 app.use(sessionMiddleware)
 

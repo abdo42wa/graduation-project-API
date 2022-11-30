@@ -4,7 +4,8 @@ import { authenticateUser } from '../../middlewares/userPermissionMiddleware';
 
 const router = express.Router();
 
-router.post('/', addOrUpdateAddress, authenticateUser).get('/', getUserAddress, authenticateUser)
+router.post('/', addOrUpdateAddress, authenticateUser)
+router.get('/', getUserAddress)
 
 
 export default router;
