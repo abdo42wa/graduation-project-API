@@ -1,12 +1,13 @@
 import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./config/db";
-import categoryRoutes from './routes/category/categoryRoute'
-import userRouters from './routes/user/userRoutes'
-import productsRouters from './routes/products/productsRouters'
-import reviewsRouters from './routes/reviews/reviewRouters'
-import addressRouters from './routes/shippingAddress/addressReuters'
-import orderReuters from './routes/orders/orderReuters'
+import categoryRoutes from './routes/categoryRoute'
+import userRouters from './routes/userRoutes'
+import productsRouters from './routes/productsRouters'
+import reviewsRouters from './routes/reviewRouters'
+import addressRouters from './routes/addressReuters'
+import orderReuters from './routes/orderReuters'
+import sellerReuters from './routes/sellerRouter'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import passport from './middlewares/passport.middleware'
@@ -55,6 +56,7 @@ app.use('/api/user', userRouters)
 app.use('/api/review', reviewsRouters)
 app.use('/api/address', addressRouters)
 app.use('/api/order', orderReuters)
+app.use('/api/seller', sellerReuters)
 
 
 app.get('/', (req, res) => {

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
 
-enum UserTypes {
-    SEELR = 'SELLER',
+export enum UserTypes {
+    SELLER = 'SELLER',
     BUYER = 'BUYER',
 }
 
