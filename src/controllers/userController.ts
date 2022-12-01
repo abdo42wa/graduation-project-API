@@ -97,13 +97,13 @@ const getUserInfo = async (req: Request, res: Response, next: NextFunction) => {
 
 const logout = ((req: Request, res: Response, next: NextFunction) => {
     // req.logOut((err) => {
-    //     return next(err)
-    // });
-
     req.session.destroy((err) => {
         res.clearCookie("connect.sid")
-        res.status(204).send("user looged out")
+        res.status(204).send("user logged out")
     });
+    // return next(err)
+    // });
+
 })
 
 const getAllUsers = (async (req: Request, res: Response, next: NextFunction) => {

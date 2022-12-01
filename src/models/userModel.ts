@@ -7,7 +7,7 @@ export enum UserTypes {
 }
 
 export interface IUser {
-    _id: string,
+    _id?: string,
     email: string,
     type: UserTypes,
     isAdmin: boolean,

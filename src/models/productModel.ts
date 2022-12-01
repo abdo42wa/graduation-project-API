@@ -29,8 +29,8 @@ export interface IProduct {
 const productSchema = new mongoose.Schema<IProduct>({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User',
+        require: true,
+        ref: 'User'
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,

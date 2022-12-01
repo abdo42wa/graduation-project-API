@@ -1,6 +1,5 @@
 import asyncHandler from 'express-async-handler'
 import Product, { IProduct } from '../models/productModel'
-import User from '../models/userModel'
 
 
 const getProducts = asyncHandler(async (req, res) => {
@@ -13,7 +12,7 @@ const getProducts = asyncHandler(async (req, res) => {
             },
         }
         : {}
-    const products = await Product.find({ ...keyword })
+    const products = await Product.find({ ...keyword && { 'moderationStatus': "APPROVE" } })
 
     res.json(products)
 })
@@ -103,10 +102,8 @@ const updateProduct = asyncHandler(async (req, res) => {
 })
 
 const getAllProductWithTheUserID = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-
-    const products = await Product.find({ 'user': user })
-    if (user) {
+    const products = await Product.find({ 'user': req.user })
+    if (products) {
 
         res.json(products)
     } else {
@@ -115,5 +112,6 @@ const getAllProductWithTheUserID = asyncHandler(async (req, res) => {
     }
 
 })
+
 
 export { getProducts, getProductById, deleteProduct, createProduct, updateProduct, getAllProductWithTheUserID }
