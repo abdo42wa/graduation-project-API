@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler'
-import Product, { IProduct } from '../models/productModel'
+import Product, { IProduct, ModerationStatus } from '../models/productModel'
 
 
 const getProducts = asyncHandler(async (req, res) => {
@@ -13,6 +13,14 @@ const getProducts = asyncHandler(async (req, res) => {
         }
         : {}
     const products = await Product.find({ ...keyword && { 'moderationStatus': "APPROVE" } })
+
+    res.json(products)
+})
+
+const AdminGetProducts = asyncHandler(async (req, res) => {
+
+    const products = await Product.find({ 'moderationStatus': { $ne: "APPROVE" } })
+        .populate({ path: 'category', select: ['title'] })
 
     res.json(products)
 })
@@ -113,5 +121,19 @@ const getAllProductWithTheUserID = asyncHandler(async (req, res) => {
 
 })
 
+const approveProduct = asyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id)
+    if (product) {
+        let moderationStatus = product.moderationStatus = ModerationStatus.APPROVE
+        await product.updateOne({
+            moderationStatus
+        })
+        res.send(product);
+    } else {
+        res.status(400)
+        throw new Error('user is not exist')
+    }
 
-export { getProducts, getProductById, deleteProduct, createProduct, updateProduct, getAllProductWithTheUserID }
+})
+
+export { getProducts, getProductById, deleteProduct, createProduct, updateProduct, getAllProductWithTheUserID, AdminGetProducts, approveProduct }
