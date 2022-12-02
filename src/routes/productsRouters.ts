@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/own', getAllProductWithTheUserID, authenticateUser);
 router.get('/', getProducts).get('/:id', getProductById).delete('/:id', deleteProduct);
 router.post('/create', createProduct);
-router.put('/:id', updateProduct).patch('/approve/:id', approveProduct);
+router.put('/:id', updateProduct, authenticateUser).patch('/approve/:id', approveProduct);
 router.get('/admin/products', AdminGetProducts)
 
 

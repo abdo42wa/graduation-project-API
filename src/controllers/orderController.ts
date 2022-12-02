@@ -92,3 +92,30 @@ export const addOrderItems = asyncHandler(async (req, res, next) => {
     }
 
 })
+
+export const getAllOrdersByUserId = asyncHandler(async (req, res, next) => {
+
+    const orders = await Order.find({ 'user': req.user })
+    if (orders) {
+
+        res.json(orders)
+    } else {
+        res.status(400)
+        throw new Error('You have no orders yet')
+    }
+
+})
+
+export const getAllOrders = asyncHandler(async (req, res, next) => {
+
+    const orders = await Order.find({})
+        .populate({ path: 'user', select: ['name'] })
+    if (orders) {
+
+        res.json(orders)
+    } else {
+        res.status(400)
+        throw new Error('there is no orders')
+    }
+
+})
