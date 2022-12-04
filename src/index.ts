@@ -8,6 +8,7 @@ import reviewsRouters from './routes/reviewRouters'
 import addressRouters from './routes/addressReuters'
 import orderReuters from './routes/orderReuters'
 import sellerReuters from './routes/sellerRouter'
+import wishlistReuters from './routes/wishlistReutes'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import passport from './middlewares/passport.middleware'
@@ -57,6 +58,7 @@ app.use('/api/review', reviewsRouters)
 app.use('/api/address', addressRouters)
 app.use('/api/order', orderReuters)
 app.use('/api/seller', sellerReuters)
+app.use('/api/wishlist', wishlistReuters)
 
 
 app.get('/', (req, res) => {

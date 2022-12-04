@@ -15,7 +15,7 @@ const createProductReview = asyncHandler(async (req: Request, res: Response, nex
     });
 
     if (newReview) {
-        res.status(201).json({ message: 'Review added succsessfuly' })
+        res.status(201).json({ message: 'Review added successfully' })
     } else {
         res.status(400)
         throw new Error('Please enter a valid review')
