@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
-import Seller, { ISeller } from "../models/sellerModel";
-import User, { UserTypes } from "../models/userModel";
+import { ISeller } from "../interfaces/ISeller";
+import { UserTypes } from "../interfaces/IUser";
+import Seller from "../models/sellerModel";
+import User from "../models/userModel";
 
 export const addSeller = asyncHandler(async (req, res) => {
     const { image, phoneNumber }: ISeller = req.body;

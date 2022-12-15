@@ -1,5 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
-import Address, { IAddress } from "../models/addressModel";
+import { IAddress } from "../interfaces/IAddress";
+import Address from "../models/addressModel";
 
 export const addOrUpdateAddress = expressAsyncHandler(async (req, res) => {
     const { address, city, country, postalCode }: IAddress = req.body;

@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
-export interface IWishlist {
-    user: mongoose.SchemaDefinitionProperty<string>
-    products: [mongoose.SchemaDefinitionProperty<string>];
-    name: string
-}
+import { IWishlist } from "../interfaces/IWishlist";
+
 const wishlistSchema = new mongoose.Schema<IWishlist>(
     {
         user: {

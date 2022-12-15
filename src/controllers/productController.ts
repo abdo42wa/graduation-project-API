@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
-import Product, { IProduct, ModerationStatus } from '../models/productModel'
-
+import { IProduct, ModerationStatus } from '../interfaces/IProduct'
+import Product from '../models/productModel'
 
 const getProducts = asyncHandler(async (req, res) => {
 
@@ -12,7 +12,7 @@ const getProducts = asyncHandler(async (req, res) => {
             },
         }
         : {}
-    const products = await Product.find({ ...keyword && { 'moderationStatus': "APPROVE" } })
+    const products = await Product.find({ ...keyword, 'moderationStatus': "APPROVE", 'isPublished': true })
 
     res.json(products)
 })
@@ -56,18 +56,18 @@ const deleteProduct = asyncHandler(async (req, res) => {
 })
 
 const createProduct = asyncHandler(async (req, res) => {
-    const { name, price, image, brand, category, countInStock, discount: discaunt, description, status }: IProduct = req.body;
+    const { name, price, image, brand, category, countInStock, discount, description, status }: IProduct = req.body;
 
     const product = await Product.create({
+        user: req.user,
         name,
         price,
-        user: req.user,
         image,
         brand,
         category,
         countInStock,
         description,
-        discount: discaunt,
+        discount,
         status,
     })
 
@@ -136,4 +136,34 @@ const approveProduct = asyncHandler(async (req, res) => {
 
 })
 
-export { getProducts, getProductById, deleteProduct, createProduct, updateProduct, getAllProductWithTheUserID, AdminGetProducts, approveProduct }
+const applyDiscount = asyncHandler(async (req, res) => {
+    const { discount } = req.body;
+    const product = await Product.findById(req.params.id)
+    if (product) {
+        product.discount = discount
+        await product.updateOne({
+            discount
+        })
+        res.send(product);
+    } else {
+        res.status(400)
+        throw new Error('user is not exist')
+    }
+})
+
+const changeVisibility = asyncHandler(async (req, res) => {
+    const { isPublished } = req.body;
+    const product = await Product.findById(req.params.id)
+    if (product) {
+        product.isPublished = isPublished
+        await product.updateOne({
+            isPublished
+        })
+        res.send(product);
+    } else {
+        res.status(400)
+        throw new Error('user is not exist')
+    }
+})
+
+export { getProducts, changeVisibility, applyDiscount, getProductById, deleteProduct, createProduct, updateProduct, getAllProductWithTheUserID, AdminGetProducts, approveProduct }

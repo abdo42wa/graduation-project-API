@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from "express"
 import asyncHandler from "express-async-handler"
 import Product from "../models/productModel"
 import { ObjectId } from 'bson';
-import Review, { IReview } from "../models/reviewsModel"
+import Review from "../models/reviewsModel"
+import { IReview } from "../interfaces/IReview";
 
 const createProductReview = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const { rating, comment }: IReview = req.body
@@ -36,7 +37,7 @@ const getAllReviewsWithProductID = asyncHandler(async (req, res) => {
     }
 })
 
-const getAvaregeRatingByProductId = asyncHandler(async (req, res) => {
+const getAverageRatingByProductId = asyncHandler(async (req, res) => {
 
     const average: any = [
         {
@@ -61,4 +62,4 @@ const getAvaregeRatingByProductId = asyncHandler(async (req, res) => {
 })
 
 
-export { createProductReview, getAllReviewsWithProductID, getAvaregeRatingByProductId }
+export { createProductReview, getAllReviewsWithProductID, getAverageRatingByProductId }

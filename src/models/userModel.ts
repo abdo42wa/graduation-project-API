@@ -1,23 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
+import { IUser, UserTypes } from "../interfaces/IUser";
 
-export enum UserTypes {
-    SELLER = 'SELLER',
-    BUYER = 'BUYER',
-}
-
-export interface IUser {
-    _id?: string,
-    email: string,
-    type: UserTypes,
-    isAdmin: boolean,
-    name: string,
-    profile_picture?: string,
-    password?: string,
-    email_verified: boolean,
-    googleID?: string,
-    matchPassword: any
-}
 
 const userSchema = new mongoose.Schema<IUser>({
     name: {

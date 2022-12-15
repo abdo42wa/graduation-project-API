@@ -13,7 +13,7 @@ export const getUserWishlist = asyncHandler(async (req, res) => {
     }
 })
 
-export const getUserWishlist12 = asyncHandler(async (req, res) => {
+export const getUserWishlistByProductID = asyncHandler(async (req, res) => {
     const average: any = [
         {
             '$match': {

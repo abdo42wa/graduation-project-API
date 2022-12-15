@@ -1,10 +1,10 @@
 import express from 'express'
 import { addSeller, getSeller } from '../controllers/sellerController';
-import { authenticateUser } from '../middlewares/userPermissionMiddleware';
+import { authenticated } from '../middlewares/userPermissionMiddleware';
 
 const router = express.Router();
 
-router.post('/', addSeller, authenticateUser)
+router.post('/', addSeller, authenticated)
 router.get('/', getSeller)
 
 

@@ -1,11 +1,11 @@
 import express from 'express'
-import { createProductReview, getAllReviewsWithProductID, getAvaregeRatingByProductId } from '../controllers/reviewController'
-import { authenticateUser } from '../middlewares/userPermissionMiddleware';
+import { createProductReview, getAllReviewsWithProductID, getAverageRatingByProductId } from '../controllers/reviewController'
+import { authenticated } from '../middlewares/userPermissionMiddleware';
 
 const router = express.Router();
 
-router.route('/:id').post(authenticateUser, createProductReview).get(getAllReviewsWithProductID)
-router.route('/avr/:id').get(getAvaregeRatingByProductId)
+router.route('/:id').post(authenticated, createProductReview).get(getAllReviewsWithProductID)
+router.route('/avr/:id').get(getAverageRatingByProductId)
 
 
 export default router;

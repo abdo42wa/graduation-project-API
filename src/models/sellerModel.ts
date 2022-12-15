@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
+import { ISeller } from "../interfaces/ISeller";
 
-
-export interface ISeller {
-    user: mongoose.SchemaDefinitionProperty<string>,
-    image: string,
-    phoneNumber: string
-}
 
 const sellerSchema = new mongoose.Schema<ISeller>({
     user: {

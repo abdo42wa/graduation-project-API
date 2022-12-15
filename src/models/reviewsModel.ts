@@ -1,12 +1,7 @@
 import mongoose from "mongoose";
+import { IReview } from "../interfaces/IReview";
 
-export interface IReview {
-    _id?: string,
-    user?: mongoose.SchemaDefinitionProperty<string>,
-    product?: mongoose.SchemaDefinitionProperty<string>,
-    rating?: number,
-    comment?: string,
-}
+
 
 const reviewSchema = new mongoose.Schema<IReview>(
     {

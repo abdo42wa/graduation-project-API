@@ -33,7 +33,7 @@ export const checkout = asyncHandler(async (req, res) => {
         mode: 'payment',
         customer_email: req.body.email,
         cancel_url: 'http://localhost:3000/cancel/checkout',
-        success_url: 'http://localhost:3000/success/checkout'
+        success_url: 'http://localhost:3000/success/checkout',
     })
     res.send({ url: session.url });
 

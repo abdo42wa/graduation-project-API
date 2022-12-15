@@ -1,12 +1,6 @@
 import mongoose from "mongoose";
+import { IAddress } from "../interfaces/IAddress";
 
-export interface IAddress {
-    user: mongoose.SchemaDefinitionProperty<string>,
-    address: string,
-    city: string,
-    postalCode: string,
-    country: string
-}
 
 const addressSchema = new mongoose.Schema<IAddress>({
     user: {
