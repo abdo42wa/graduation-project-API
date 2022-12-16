@@ -3,6 +3,9 @@ import User from "../models/userModel"
 import dotenv from "dotenv"
 import passport from '../middlewares/passport.middleware';
 import { Request, Response, NextFunction } from 'express'
+import Token from '../models/tokenModel';
+import crypto from 'crypto'
+import { sendEmail } from '../utils/sendEmail';
 dotenv.config();
 
 const registerUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -21,19 +24,34 @@ const registerUser = asyncHandler(async (req: Request, res: Response, next: Next
         password
     })
     if (user) {
-        res.status(201).json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            isAdmin: user.isAdmin,
-            email_verified: user.email_verified,
-        })
+        const token = await new Token({
+            userId: user._id,
+            token: crypto.randomBytes(32).toString('hex')
+        }).save();
+        const url = `http://localhost:3000/succsess/user/${user._id}/verify/${token.token}`
+
+        await sendEmail(user.email, 'Verify Email', url)
+        res.status(200).send({ message: "please verify your email" })
     } else {
         res.status(400)
         throw new Error('inveld user data')
     }
 })
 
+const verifyUserEmail = async (req: Request, res: Response, next: NextFunction) => {
+
+    const user = await User.findOne({ _id: req.params.id })
+    if (!user) return res.status(400).send({ message: "Invalid link" })
+    const token = await Token.findOne({
+        userId: user._id,
+        token: req.params.token
+    })
+    if (!token) return res.status(400).send({ message: "Invalid link" })
+    await user.updateOne({ email_verified: true })
+
+    await Token.remove();
+    res.status(200).send({ message: "User have been verified successfully" })
+}
 
 const updateUserProfile = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -69,18 +87,32 @@ const updateUserProfile = asyncHandler(async (req: Request, res: Response, next:
 })
 
 const authUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate("local", (err, user, info) => {
-        if (!user) return res.status(401).json({ message: "Email or password is incorect" })
+    passport.authenticate("local", async (err, user, info) => {
+        if (!user) return res.status(400).send({ message: "Incorrect email or password" })
+        if (!user?.email_verified) {
+            let token = await Token.findOne({ userId: user?._id })
+            if (!token) {
+                token = await new Token({
+                    userId: user?._id,
+                    token: crypto.randomBytes(32).toString('hex')
+                }).save();
+                const url = `http://localhost:3000/succsess/user/${user?._id}/verify/${token.token}`
 
-        req.login(user, (err) => {
-            if (err) {
-                throw err;
-            } else {
-                res.status(201).json({
-                    user,
-                })
+                await sendEmail(user?.email!, 'Verify Email', url)
             }
-        })
+            return res.status(400).send({ message: "An email sent to your account please verify" })
+        } else {
+            req.login(user, (err) => {
+                if (err) {
+                    throw err;
+                } else {
+                    res.status(201).json({
+                        user,
+                    })
+                }
+            })
+        }
+
     })(req, res, next)
 });
 
@@ -112,5 +144,5 @@ const getAllUsers = (async (req: Request, res: Response, next: NextFunction) => 
 
     res.status(200).json({ allUsers })
 })
-export { registerUser, authUser, logout, getUserInfo, getAllUsers, updateUserProfile };
+export { registerUser, authUser, logout, getUserInfo, getAllUsers, updateUserProfile, verifyUserEmail };
 
