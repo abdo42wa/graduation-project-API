@@ -38,6 +38,14 @@ const registerUser = asyncHandler(async (req: Request, res: Response, next: Next
     }
 })
 
+export const sendEmail1 = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+    const url = `http://localhost:3000/succsess/user/verify`;
+
+    await sendEmail("abdo.ahmed.aa754@gmail.com", 'Verify Email', url)
+    res.status(200).send({ message: "please verify your email" })
+})
+
 const verifyUserEmail = async (req: Request, res: Response, next: NextFunction) => {
 
     const user = await User.findOne({ _id: req.params.id })
