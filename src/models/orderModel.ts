@@ -14,10 +14,16 @@ const orderSchema = new mongoose.Schema<IOrder>({
             qty: { type: Number, require: true },
             image: { type: String, require: true },
             price: { type: Number, require: true },
+            orderStatus: { type: String, default: "Preparing" },
             product: {
                 type: mongoose.Schema.Types.ObjectId,
                 require: true,
                 ref: 'Product'
+            },
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                require: true,
+                ref: 'User'
             },
         }
     ],

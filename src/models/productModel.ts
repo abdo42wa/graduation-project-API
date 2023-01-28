@@ -9,6 +9,11 @@ const productSchema = new mongoose.Schema<IProduct>({
         require: true,
         ref: 'User'
     },
+    seller: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true,
+        ref: 'Seller'
+    },
     category: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -20,7 +25,9 @@ const productSchema = new mongoose.Schema<IProduct>({
     },
     image: {
         type: String,
-        required: true,
+    },
+    imageCloud: {
+        type: Object,
     },
     brand: {
         type: String,
@@ -59,6 +66,10 @@ const productSchema = new mongoose.Schema<IProduct>({
         type: Number,
         required: true,
         default: 0,
+    },
+    rejectedMessage: {
+        type: String,
+        default: '',
     },
     isPublished: {
         type: Boolean,

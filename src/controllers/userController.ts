@@ -124,6 +124,28 @@ const authUser = asyncHandler(async (req: Request, res: Response, next: NextFunc
     })(req, res, next)
 });
 
+export const getUserStats = asyncHandler(async (req, res, next) => {
+    const date = new Date();
+    const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+    console.log({ lastYear })
+    const data = await User.aggregate([
+        { $match: { createdAt: { $gte: lastYear } } },
+        {
+            $project: {
+                month: { $month: "$createdAt" },
+            },
+        },
+        {
+            $group: {
+                _id: "$month",
+                total: { $sum: 1 }
+            }
+        }
+    ])
+
+    res.status(200).json(data.sort());
+})
+
 const getUserInfo = async (req: Request, res: Response, next: NextFunction) => {
     if (req.isAuthenticated()) {
         const user = await User.findById(req.user)
@@ -150,7 +172,8 @@ const getAllUsers = (async (req: Request, res: Response, next: NextFunction) => 
 
     const allUsers = await User.find({})
 
-    res.status(200).json({ allUsers })
+    res.status(200).json(allUsers)
 })
+
 export { registerUser, authUser, logout, getUserInfo, getAllUsers, updateUserProfile, verifyUserEmail };
 

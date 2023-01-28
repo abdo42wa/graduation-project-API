@@ -12,10 +12,12 @@ export enum ProductStatus {
 
 export interface IProduct {
     user: mongoose.SchemaDefinitionProperty<string>,
+    seller: mongoose.SchemaDefinitionProperty<string>,
     category: mongoose.SchemaDefinitionProperty<string>,
-    image: string,
+    image?: string,
     name: string,
     brand?: string,
+    rejectedMessage?: string,
     description: string,
     moderationStatus: ModerationStatus,
     numReviews: number,
@@ -23,5 +25,6 @@ export interface IProduct {
     status: ProductStatus,
     countInStock: number,
     discount: number,
-    isPublished: boolean
+    isPublished: boolean,
+    imageCloud?: object
 }

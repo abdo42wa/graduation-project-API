@@ -61,5 +61,47 @@ const getAverageRatingByProductId = asyncHandler(async (req, res) => {
     res.json(rating)
 })
 
+const getReviewsStats = asyncHandler(async (req, res, next) => {
+    const date = new Date();
+    const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+    console.log({ lastYear })
+    const data = await Review.aggregate([
+        { $match: { createdAt: { $gte: lastYear } } },
+        {
+            $project: {
+                month: { $month: "$createdAt" },
+            },
+        },
+        {
+            $group: {
+                _id: "$month",
+                total: { $sum: 1 }
+            }
+        }
+    ])
 
-export { createProductReview, getAllReviewsWithProductID, getAverageRatingByProductId }
+    res.status(200).json(data.sort((a, b) => a._id + b._id));
+})
+
+const getAllReviews = asyncHandler(async (req, res, next) => {
+
+    const review = await Review.find({}).populate({ path: 'user', select: ['name'] })
+    res.status(200).json(review);
+})
+
+const deleteReview = asyncHandler(async (req, res, next) => {
+
+    const review = await Review.findById(req.params.id)
+
+    if (review) {
+        await review.remove()
+        res.json({ message: 'Review removed' })
+    } else {
+        res.status(404)
+        throw new Error('Review not found')
+    }
+
+
+})
+
+export { createProductReview, getAllReviewsWithProductID, getAverageRatingByProductId, getReviewsStats, getAllReviews, deleteReview }

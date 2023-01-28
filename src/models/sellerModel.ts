@@ -15,6 +15,14 @@ const sellerSchema = new mongoose.Schema<ISeller>({
     phoneNumber: {
         type: String,
         required: true,
+    },
+    fullLegalName: {
+        type: String,
+        required: true,
+    },
+    bankAccount: {
+        type: String,
+        required: true,
     }
 
 }, {

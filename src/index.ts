@@ -46,7 +46,7 @@ app.get(
     passport.authenticate('google', { failureRedirect: '/login' }),
     (_req, res) => {
 
-        res.redirect('http://localhost:3000/succsess');
+        res.redirect('http://localhost:3000/login/success');
     }
 );
 
@@ -74,7 +74,7 @@ let io = new Server(http, {
     pingTimeout: 60000,
     cors: {
         origin: "http://localhost:3000",
-        credentials: true
+
     }
 });
 let users: any = [];
@@ -83,22 +83,32 @@ const addUser = (userId: string, socketId: string) => {
     !users.some((user: any) => user.userId === userId) && userId &&
         users.push({ userId, socketId })
 }
+
+const removUser = (socketId: string) => {
+    users = users.filter((user: any) => user.socketId !== socketId)
+}
 const getUser = (userId: string) => {
-    return users.find((user: any) => user.userId == userId)
+    return users.find((user: any) => user.userId === userId)
 }
 io.on("connection", (socket: any) => {
-
+    console.log("someone join");
     socket.on("setup", (userID: string) => {
         addUser(userID, socket.id)
     })
+
+    socket.on('disconnect', () => {
+        removUser(socket.id)
+    })
+
+
     // @ts-ignore 
-    socket.on("sendNotification", ({ productID, message, receiverId, reded1 }) => {
+    socket.on("sendNotification", ({ productID, message, receiverId, reded }) => {
         const receiver = getUser(receiverId)
         console.log({ message, receiverId })
         io.to(receiver?.socketId).emit("getNotification", {
             message,
             productID,
-            reded1
+            reded
         })
     })
     // const newArray = new Set([...users])

@@ -5,12 +5,14 @@ import Seller from "../models/sellerModel";
 import User from "../models/userModel";
 
 export const addSeller = asyncHandler(async (req, res) => {
-    const { image, phoneNumber }: ISeller = req.body;
+    const { image, phoneNumber, bankAccount, fullLegalName }: ISeller = req.body;
 
     const addSeller = await Seller.create({
         user: req.user,
         image,
-        phoneNumber
+        phoneNumber,
+        bankAccount,
+        fullLegalName
     })
 
     if (addSeller) {
